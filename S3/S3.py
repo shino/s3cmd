@@ -154,6 +154,10 @@ class S3(object):
 
     def __init__(self, config):
         self.config = config
+        if config.multipart_chunk_size_bytes == 0:
+            self.multipart_chunk_size = config.multipart_chunk_size_mb * 1024 * 1024
+        else:
+            self.multipart_chunk_size = config.multipart_chunk_size_bytes
 
     def get_connection(self, bucket):
         if self.config.proxy_host != "":
@@ -375,7 +379,7 @@ class S3(object):
         ## Multipart decision
         multipart = False
         if self.config.enable_multipart:
-            if size > self.config.multipart_chunk_size_mb * 1024 * 1024:
+            if size > self.multipart_chunk_size:
                 multipart = True
         if multipart:
             # Multipart requests are quite different... drop here
@@ -774,7 +778,6 @@ class S3(object):
         return response
 
     def send_file_multipart(self, file, headers, uri, size):
-        chunk_size = self.config.multipart_chunk_size_mb * 1024 * 1024
         timestamp_start = time.time()
         upload = MultiPartUpload(self, file, uri, headers)
         upload.upload_all_parts()

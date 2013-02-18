@@ -65,6 +65,7 @@ class Config(object):
     mime_type = ""
     enable_multipart = True
     multipart_chunk_size_mb = 15    # MB
+    multipart_chunk_size_bytes = 0  # bytes (0: use multipart_chunk_size_mb)
     # List of checks to be performed for 'sync'
     sync_checks = ['size', 'md5']   # 'weak-timestamp'
     # List of compiled REGEXPs

@@ -43,7 +43,7 @@ class MultiPartUpload(object):
             raise RuntimeError("Attempting to use a multipart upload that has not been initiated.")
 
         size_left = file_size = os.stat(self.file.name)[ST_SIZE]
-        self.chunk_size = self.s3.config.multipart_chunk_size_mb * 1024 * 1024
+        self.chunk_size = self.s3.multipart_chunk_size
         nr_parts = file_size / self.chunk_size + (file_size % self.chunk_size and 1)
         debug("MultiPart: Uploading %s in %d parts" % (self.file.name, nr_parts))
 
