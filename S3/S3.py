@@ -200,6 +200,8 @@ class S3(object):
                 host = getHostnameFromBucket(bucket)
         else:
             host = self.config.host_base
+        if self.config.port != 80:
+            host = "%s:%d" % (host, self.config.port)
         debug('get_hostname(%s): %s' % (bucket, host))
         return host
 

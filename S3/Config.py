@@ -21,6 +21,7 @@ class Config(object):
     secret_key = ""
     access_token = ""
     host_base = "s3.amazonaws.com"
+    port = 80
     host_bucket = "%(bucket)s.s3.amazonaws.com"
     simpledb_host = "sdb.amazonaws.com"
     cloudfront_host = "cloudfront.amazonaws.com"
