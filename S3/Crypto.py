@@ -97,6 +97,9 @@ def sign_string_v4(method='GET', host='', canonical_uri='/', params={}, region='
     else:
         payload_hash = sha256(body).hexdigest()
 
+    # ## FAKE/DUMMY
+    # payload_hash = '0000000000000000000000000000000000000000000000000000000000000000'
+    # print payload_hash
     canonical_headers = {'host' : host,
                          'x-amz-content-sha256': payload_hash,
                          'x-amz-date' : amzdate
